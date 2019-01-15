@@ -33,3 +33,67 @@ describe("Jasmine Matchers", () => {
     expect({name:'Patrick', job:'Software Engineer'}).toEqual(jasmine.objectContaining({name:'Patrick'}));
   });
 });
+
+describe("Arrays + beforeEach", () => {
+  let arr;
+  beforeEach( () => arr = [2,4,6] );
+
+  it("adds elements to an array", () => {
+    arr.push(44);
+    expect(arr).toEqual([2,4,6,44]);
+  });
+  it("returns the new length of the array", () => {
+    expect(arr.push(44)).toBe(4)
+  });
+  it("adds anything into the array", () => {
+    expect(arr.push({})).toBe(4)
+  })
+})
+
+describe("Counting + afterEach", () => {
+  let count = 0;
+  beforeEach(() => count++)
+  afterEach(() => count = 0)
+  it("has a counter that increments", () => {
+    expect(count).toBe(1);
+  });
+  it("gets reset", () => {
+    expect(count).toBe(1)
+  })
+})
+
+// ignoring beforeAll and afterAll for now
+
+describe("Nesting", () => {
+  let arr;
+  beforeEach(() => arr = [2,4,6])
+  describe("#unshift", () => {
+    it("adds an element to the beginning of an array", () => {
+      arr.unshift(44);
+      expect(arr[0]).toBe(44)
+    });
+    it("returns the new length", () => {
+      expect(arr.unshift(9000)).toBe(4)
+    })
+  })
+  describe("#push", () => {
+    it("adds an element to the end of an array", () => {
+      arr.push(44);
+      expect(arr[arr.length-1]).toBe(44)
+    })
+    it("returns the new length", () => {
+      expect(arr.push(9000)).toBe(4)
+    })
+  })
+})
+
+describe("Pending specs", () => {
+  xit("can start with an xit", () => {
+    expect(true).toBe(true);
+  });
+  it("is a pending test if there is no callback function");
+  it("is pending if the pending function is invoked inside the callback", () => {
+    expect(2).toBe(2);
+    pending();
+  });
+});
